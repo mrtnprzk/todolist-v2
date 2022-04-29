@@ -81,8 +81,6 @@ app.get("/:customListName", (req, res) => {
             }
         }
     })
-
-    
 });
  
 app.post('/', (req, res) => {
@@ -127,17 +125,21 @@ app.post('/delete', (req, res) => {
                 res.redirect(`/${listName}`);
             }
         })
-    }
-
-    
+    }  
 });
 
 app.get("/about", (req, res) => {
     res.render("about");
 });
 
-
 //---------------------------------------------
-app.listen(port, () => {
-    console.log(`Example app listening on port ${port}`);
+
+// heroku: process.env.PORT
+let herokuPort = process.env.PORT;
+if (herokuPort == null || herokuPort == "") {
+    herokuPort = port
+}
+
+app.listen(herokuPort, () => {
+    console.log(`Example app listening on port ${herokuPort}.`);
 });
